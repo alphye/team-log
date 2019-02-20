@@ -16,7 +16,7 @@ public class DBMonitor {
     public static final List<String> initialDDL = Arrays.asList(
             "CREATE TABLE tag" +
                     "(" +
-                    "    id bigint AUTO_INCREMENT PRIMARY KEY NOT NULL," +
+                    "    id varchar(50) PRIMARY KEY NOT NULL," +
                     "    name varchar(150)," +
                     "    color varchar(20) default '#eee'," +
                     "    type integer" +
@@ -24,7 +24,7 @@ public class DBMonitor {
             "CREATE TABLE userTag" +
                     "(" +
                     "    id bigint AUTO_INCREMENT PRIMARY KEY NOT NULL," +
-                    "    tagId bigint," +
+                    "    tagId varchar(50)," +
                     "    userId bigint" +
                     ")",
             "CREATE TABLE worklog" +
@@ -35,7 +35,7 @@ public class DBMonitor {
                     "    startTime datetime," +
                     "    endTime datetime," +
                     "    tags varchar(150)," +
-                    "    tagId bigint," +
+                    "    tagId varchar(50)," +
                     "    nice integer," +
                     "    comments integer," +
                     "    createTime datetime" +
@@ -93,7 +93,7 @@ public class DBMonitor {
             "CREATE TABLE referTags" +
                     "(" +
                     "    id bigint AUTO_INCREMENT PRIMARY KEY NOT NULL," +
-                    "    tagId bigint," +
+                    "    tagId varchar(50)," +
                     "    referId bigint," +
                     "    referType integer" +
                     ")");

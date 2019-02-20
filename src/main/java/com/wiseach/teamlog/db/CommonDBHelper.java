@@ -16,11 +16,11 @@ public class CommonDBHelper {
 
 
     public static List<Map<String, Object>> getTags() {
-        return PublicDBHelper.query("select name as \"label\",id as \"value\",color as \"color\" from tag order by name", new MapListHandler());
+        return PublicDBHelper.query("select name as \"name\",id as \"id\",color as \"color\" from tag order by id", new MapListHandler(new DefaultRowProcessor()));
     }
 
     public static List<Map<String, Object>> getUserTags(Long userId) {
-        List<Map<String, Object>> tags = PublicDBHelper.query("select name as \"label\",id as \"value\",color as \"color\"  from tag where id in (select tagId from userTag where userId=?) order by name", new MapListHandler(), userId);
+        List<Map<String, Object>> tags = PublicDBHelper.query("select name as \"name\",id as \"name\",color as \"color\"  from tag where id in (select tagId from userTag where userId=?) order by id", new MapListHandler(new DefaultRowProcessor()), userId);
         if (tags==null || tags.size()==0) {
             tags = getTags();
         }
@@ -28,10 +28,10 @@ public class CommonDBHelper {
     }
 
     public static List<Map<String, Object>> getUserTagsId(Long userId) {
-        return PublicDBHelper.query("select id as \"id\",tagId as \"tagId\" from userTag where userId=?",new MapListHandler(),userId);
+        return PublicDBHelper.query("select id as \"id\",tagId as \"tagId\" from userTag where userId=?",new MapListHandler(new DefaultRowProcessor()),userId);
     }
 
-    public static Long addUserTag(Long userId,Long tagId) {
+    public static Long addUserTag(Long userId,String tagId) {
         return PublicDBHelper.insert("insert into userTag(`userId`,`tagId`) values(?,?)", userId, tagId);
     }
 
@@ -39,19 +39,19 @@ public class CommonDBHelper {
         return PublicDBHelper.exec("delete from userTag where id=?",userTagId)>0;
     }
 
-    public static void newReferTag(long tagId, Long id, Integer referType) {
+    public static void newReferTag(String tagId, Long id, Integer referType) {
         PublicDBHelper.insert("insert into referTags(tagId,referId,referType) values(?,?,?)",tagId,id,referType);
     }
 
-    public static boolean needCreateReferTag(Long tId, Long id, Integer referType) {
+    public static boolean needCreateReferTag(String tId, Long id, Integer referType) {
         return !PublicDBHelper.exist("select count(*) from referTags where tagId=? and referId=? and referType=?",tId,id,referType);
     }
 
-    public static Long newTag(String tag) {
-        return PublicDBHelper.insert("insert into tag(name) values(?)",tag);
+    public static void newTag(String tagId,String tag) {
+        PublicDBHelper.insert("insert into tag(id,name) values(?,?)",tagId,tag);
     }
 
-    public static boolean updateTagColor(Long tagId, String color) {
+    public static boolean updateTagColor(String tagId, String color) {
         return PublicDBHelper.exec("update tag set color=? where tagId=?",color,tagId)>0;
     }
 
@@ -63,7 +63,7 @@ public class CommonDBHelper {
         return PublicDBHelper.exist("select count(*) from tag where name = ?",type);
     }
 
-    public static boolean delTag(Long typeId) {
+    public static boolean delTag(String typeId) {
         return PublicDBHelper.exec("delete from tag where id=?",typeId)>0;
     }
 }

@@ -15,7 +15,7 @@
                 <label for="tags"><fmt:message key="edit.log.form.tags"/></label>
                 <select id="tags" name="tag"></select>
                 <div style="margin-top: 10px;">
-                    <button type="submit" class="btn btn-primary"><fmt:message key="button.ok.label"/></button>
+                    <button id="submitBtn" type="submit" class="btn btn-primary"><fmt:message key="button.ok.label"/></button>
                     <a id="cancelBtn" href="#" style="margin-left:10px;"><fmt:message key="button.cancel.label"/></a>
                     <a id="deleteBtn" href="#" class="btn btn-danger pull-right hide" title='<fmt:message key="button.delete.label"/>'><i class="icon-trash icon-white"></i></a>
                 </div>

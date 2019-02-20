@@ -58,7 +58,7 @@ public class TagSelectionActionBean extends BaseActionBean {
             if (id==null) {
                 return badRequest();
             } else {
-                return new JsonResolution<Long>(CommonDBHelper.addUserTag(getUserId(), Long.valueOf(id)));
+                return new JsonResolution<Long>(CommonDBHelper.addUserTag(getUserId(), id));
             }
         } else {
             return notFound();

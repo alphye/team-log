@@ -33,8 +33,10 @@ public class TeamlogContextListener implements ServletContextListener {
         UserAuthProcessor.updateRootUri(servletContextEvent.getServletContext().getContextPath());
         UserAuthProcessor.updateFirstUserStatus();
         if (!FileUtils.isParamFileExists()) {
-            FileUtils.copyFile(servletContextEvent.getServletContext().getRealPath("/") + "/WEB-INF" + File.separator + "classes"
-                    + File.separator + TeamlogLocalizationUtils.PARAMS_NAME + ".properties", FileUtils.getParamFileName());
+        	String source=servletContextEvent.getServletContext().getRealPath("/") + "/WEB-INF" + File.separator + "classes"
+                    + File.separator + TeamlogLocalizationUtils.PARAMS_NAME + ".properties";
+        	String target=FileUtils.getParamFileName();
+            FileUtils.copyFile(source, target);
         }
         FileUtils.initAvatarPath();
 

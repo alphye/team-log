@@ -90,7 +90,7 @@ public class WorkLogDataServiceActionBean extends BaseActionBean {
     }
 
     public Resolution updateContent() {
-        Long tId = Long.parseLong(tagId);
+        String tId = tagId;
         if (id==null || id == 0) {
             //new a worklog
             id = WorkLogDBHelper.newWorklog(description, tagStr,tId,DateUtils.parseDate(start),DateUtils.parseDate(end),UserAuthProcessor.getUserId(getContext()));
@@ -106,10 +106,11 @@ public class WorkLogDataServiceActionBean extends BaseActionBean {
     }
 
     private void updateTagData() {
-        String[] tagArray = StringUtil.standardSplit(tagStr);
+    	throw new RuntimeException("undefined method!");
+        /*String[] tagArray = StringUtil.standardSplit(tagStr);
         String[] tagIdArray = StringUtil.standardSplit(tagId);
         String tag,tagId;
-        Long tId;
+        String tId;
         List<Long> currentTagIds = new ArrayList<Long>();
         boolean needCreateReferTag;
         for (int i = 0; i < tagArray.length; i++) {
@@ -128,7 +129,7 @@ public class WorkLogDataServiceActionBean extends BaseActionBean {
             currentTagIds.add(tId);
         }
 
-        CommonDBHelper.clearTags(id,Constants.REFER_TYPE_WORKLOG, currentTagIds.toArray(new Long[0]));
+        CommonDBHelper.clearTags(id,Constants.REFER_TYPE_WORKLOG, currentTagIds.toArray(new Long[0]));*/
     }
 
     public Resolution delete() {

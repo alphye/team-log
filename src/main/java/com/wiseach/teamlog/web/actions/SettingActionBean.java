@@ -39,10 +39,17 @@ public class SettingActionBean extends BaseActionBean{
 
             for (int i = 0; i < types.length; i++) {
                 type = types[i];
-                if (CommonDBHelper.hasTag(type)) {
-                    existType.add(type);
+                String tags[]=type.split("--");
+                if(tags==null || tags.length!=2){
+                	addError("workType", getMessage("error.message.work.type.invalid", StringUtil.combineParts(type)));
+                	break;
+                }
+                String tagId=tags[0];
+                String tag=tags[1];
+                if (CommonDBHelper.hasTag(tag)) {
+                    existType.add(tag);
                 } else {
-                    CommonDBHelper.newTag(type);
+                    CommonDBHelper.newTag(tagId,tag);
                 }
             }
 
@@ -58,7 +65,7 @@ public class SettingActionBean extends BaseActionBean{
 
     @DontValidate
     public Resolution deleteWorkType() {
-        boolean validateId = typeId != null && typeId > 0;
+        boolean validateId = typeId != null && typeId.length()>0;
         if (validateId) {
             validateId = CommonDBHelper.delTag(typeId);
         }
@@ -66,7 +73,7 @@ public class SettingActionBean extends BaseActionBean{
         return new JsonResolution<Boolean>(validateId);
     }
 
-    public Long typeId;
+    public String typeId;
     @Validate(required = true)
     private String workType;
 

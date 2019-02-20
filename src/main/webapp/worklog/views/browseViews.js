@@ -472,10 +472,18 @@ window.EditLogView = Backbone.View.extend({
     },
 
     events: {
+    	"click #submitBtn":"submitWorklog",
         "click #cancelBtn":"closeEditor",
         "click #deleteBtn":"deleteWorklog"
     },
-
+    submitWorklog:function(e){
+    	if(!$("#tags").val() || $("#tags").val()=="0"){
+    		alert("请选择工作类型！");
+    		if (e) e.preventDefault();
+    	}else{
+    		worklogForm.submit;
+    	}
+    },
     closeEditor:function(e) {
         $('#worklogCalendar').fullCalendar('unselect');
         $('#editor').fadeOut();
@@ -508,6 +516,9 @@ window.EditLogView = Backbone.View.extend({
                 window.tags=data;
                 var $tags = $('#tags'),optionT= _.template('<option value="<<=id>>"><<=name>></option>');
                 $tags.empty();
+                var emptyItem={color: "#eee", name: "	", id: "0"};
+                $tags.append(optionT(emptyItem));
+                
                 $.each(data,function(i,d){
                     $tags.append(optionT(d));
                 });

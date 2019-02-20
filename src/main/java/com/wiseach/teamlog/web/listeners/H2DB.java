@@ -1,6 +1,9 @@
 package com.wiseach.teamlog.web.listeners;
 
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -19,7 +22,18 @@ public class H2DB implements ServletContextListener{
 	public static void startH2(){
 		try {
 			if(!initialized){
-				new Console().runTool(null);
+				ResourceBundle bundle = ResourceBundle.getBundle("db",Locale.ENGLISH);
+				String[] args=new String[]{"-webPort",bundle.getString("db.webPort"),"-tcpPort",bundle.getString("db.tcpPort")};
+				if(bundle.getString("db.webAllowOthers").equals("true")){
+					args=Arrays.copyOf(args, args.length+1);
+					args[args.length-1]="-webAllowOthers";
+				}
+				
+				if(bundle.getString("db.tcpAllowOthers").equals("true")){
+					args=Arrays.copyOf(args, args.length+1);
+					args[args.length-1]="-tcpAllowOthers";
+				}
+				new Console().runTool(args);
 				initialized=true;
 			}
 		} catch (SQLException e) {

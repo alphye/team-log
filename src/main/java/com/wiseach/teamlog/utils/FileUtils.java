@@ -22,7 +22,7 @@ public class FileUtils {
 //    public static final String FILE_SERVICE_NUMBER = System.getenv("FILE_SERVICE_NUMBER");
 //
 //    public static final String FILE_SERVICE_PATH = System.getenv("MOPAAS_FILESYSTEM"+FILE_SERVICE_NUMBER+"_LOCAL_PATH") + File.separator + System.getenv("MOPAAS_FILESYSTEM"+FILE_SERVICE_NUMBER+"_NAME");
-    public static final String FILE_SERVICE_PATH = System.getProperty("filePath");
+    public static final String FILE_SERVICE_PATH = FileUtils.class.getClassLoader().getResource("").getPath()+"filepath";
 
     public static void saveBigAvatar(FileBean avatar, String realPath, String filename) {
         try {
@@ -90,8 +90,12 @@ public class FileUtils {
 
     public static void copyFile(String source,String dist){
         try {
+        	File distFile = new File(dist);
+        	if(!distFile.getParentFile().exists()){
+        		distFile.getParentFile().mkdirs();
+    		}
             InputStream is = new FileInputStream(new File(source));
-            OutputStream os = new FileOutputStream(new File(dist));
+            OutputStream os = new FileOutputStream(distFile);
             byte[] buffer = new byte[1024];
             int length;
             while ((length = is.read(buffer)) > 0) {
