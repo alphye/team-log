@@ -31,7 +31,7 @@ public class DBMonitor {
                     "(" +
                     "    id bigint AUTO_INCREMENT PRIMARY KEY NOT NULL," +
                     "    userId bigint," +
-                    "    description varchar(150)," +
+                    "    description varchar(4000)," +
                     "    startTime datetime," +
                     "    endTime datetime," +
                     "    tags varchar(150)," +
