@@ -22,7 +22,7 @@ public class FileUtils {
 //    public static final String FILE_SERVICE_NUMBER = System.getenv("FILE_SERVICE_NUMBER");
 //
 //    public static final String FILE_SERVICE_PATH = System.getenv("MOPAAS_FILESYSTEM"+FILE_SERVICE_NUMBER+"_LOCAL_PATH") + File.separator + System.getenv("MOPAAS_FILESYSTEM"+FILE_SERVICE_NUMBER+"_NAME");
-    public static final String FILE_SERVICE_PATH = FileUtils.class.getClassLoader().getResource("").getPath()+"filepath";
+    public static final String FILE_SERVICE_PATH = FileUtils.class.getClassLoader().getResource("").getPath()+"runningParams";
 
     public static void saveBigAvatar(FileBean avatar, String realPath, String filename) {
         try {

@@ -94,11 +94,11 @@
 			<artifactId>commons-email</artifactId>
 			<version>1.2</version>
 		</dependency>
-		<!--<dependency> -->
-		<!--<groupId>com.h2database</groupId> -->
-		<!--<artifactId>h2</artifactId> -->
-		<!--<version>1.3.173</version> -->
-		<!--</dependency> -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.193</version>
+		</dependency>
 
 		<dependency>
 			<groupId>mysql</groupId>
@@ -132,12 +132,6 @@
 			<version>3.9</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>RELEASE</version>
-			<scope>compile</scope>
-		</dependency>
 	</dependencies>
 	<build>
 		<finalName>teamlog</finalName>
