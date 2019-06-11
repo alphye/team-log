@@ -62,7 +62,7 @@ public class ExportExcelActionBean extends BaseActionBean {
                             cell.setCellValue((Date) worklog.get("workDate"));
                             row.createCell(1).setCellValue(worklog.get("stTime").toString());
                             row.createCell(2).setCellValue(worklog.get("edTime").toString());
-                            row.createCell(3).setCellValue(TeamlogUtils.convertDecimal(worklog.get("hours")));
+                            row.createCell(3).setCellValue(worklog.get("hours").toString());
                             row.createCell(4).setCellValue((String)worklog.get("description"));
                             row.createCell(5).setCellValue((String)worklog.get("staff"));
                             row.createCell(6).setCellValue((String)worklog.get("tag"));
