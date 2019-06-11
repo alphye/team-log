@@ -223,11 +223,12 @@ body {
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: #555;
 }
 
 .active {
     font-size: 1.2em;
-    color: #555;
+    color: #e83272;
 }
 
 .edit-log, .edit-log-active, .view-log, .view-log-active {
