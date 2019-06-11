@@ -357,7 +357,7 @@
                 var scb = sctx.canvas.height + sct;
                 // if label is outside of allowed area, remove it
                 if (ell - et < scl || elt - et < sct || elr + et > scr || elb + et > scb) {
-                    elem.remove();
+                    //elem.remove();
                 }
 
                 elem = null;
