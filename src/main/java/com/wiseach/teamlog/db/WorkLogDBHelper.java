@@ -1,10 +1,11 @@
 package com.wiseach.teamlog.db;
 
-import org.apache.commons.dbutils.handlers.MapListHandler;
-
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.dbutils.handlers.MapListHandler;
 
 /**
  * User: Arlen Tan
@@ -23,8 +24,17 @@ public class WorkLogDBHelper {
     }
 
     public static List<Map<String, Object>> getWorkLogExportData(Date start, Date end, Object[] people) {
-        return PublicDBHelper.queryWithInParam("select DATE(startTime) as \"workDate\",startTime as \"stTime\",endTime as \"edTime\",round(TIMESTAMPDIFF(MINUTE,startTime,endTime)/60,2) as \"hours\",description as \"description\",(select username from `user` where id=userId) as \"staff\",(select `name` from tag where id=tagId) as \"tag\",nice as \"nice\",comments as \"comments\" from worklog where startTime>=? and endTime<=? and userId in (%in0) order by startTime"
+    	List<Map<String, Object>> result =
+         PublicDBHelper.queryWithInParam("select startTime as \"workDate\",startTime as \"stTime\",endTime as \"edTime\",round(TIMESTAMPDIFF(MINUTE,startTime,endTime)/60,2) as \"hours\",description as \"description\",(select username from `user` where id=userId) as \"staff\",(select `name` from tag where id=tagId) as \"tag\",nice as \"nice\",comments as \"comments\" from worklog where startTime>=? and endTime<=? and userId in (%in0) order by startTime"
                 , new MapListHandler(new DefaultRowProcessor()), start, end, people);
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    	SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+    	for(Map<String,Object> map :result){
+    		map.put("workDate", dateFormat.format(map.get("workDate")));
+    		map.put("stTime", timeFormat.format(map.get("stTime")));
+    		map.put("edTime", timeFormat.format(map.get("edTime")));
+    	}
+    	return result;
     }
 
     public static List<Map<String, Object>> getCommentData(Long referId) {
